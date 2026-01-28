@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     post "users/guest_sign_in", to: "users/sessions#guest_sign_in", as: :users_guest_sign_in
   end
 
+  resources :recipes
+  get "/mypage", to: "recipes#mine"
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
