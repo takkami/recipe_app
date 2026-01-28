@@ -22,6 +22,18 @@
     </div>
 
     <div class="field">
+      <%= f.label :image, "画像（任意）" %>
+      <%= f.file_field :image, accept: "image/*", class: "input" %>
+    </div>
+
+    <% if recipe.image.attached? %>
+      <div class="field">
+        <div class="muted">現在の画像：</div>
+        <%= image_tag recipe.image.variant(resize_to_limit: [600, 600]) %>
+      </div>
+    <% end %>
+
+    <div class="field">
       <%= f.label :ingredients, "材料（任意）" %>
       <%= f.text_area :ingredients, class: "input", rows: 6, placeholder: "例：豚こま200g / 玉ねぎ1/2 ..." %>
     </div>

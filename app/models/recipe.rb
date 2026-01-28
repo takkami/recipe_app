@@ -3,6 +3,8 @@ class Recipe < ApplicationRecord
 
   has_many :favorites, dependent: :destroy
 
+  has_one_attached :image
+
   validates :title, presence: true, length: { maximum: 80 }
   validates :ingredients, length: { maximum: 2000 }, allow_blank: true
   validates :memo, length: { maximum: 5000 }, allow_blank: true
