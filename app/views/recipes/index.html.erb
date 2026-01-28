@@ -23,6 +23,8 @@
       <div class="thumb">
         <% if recipe.image.attached? %>
           <%= image_tag recipe.image.variant(resize_to_limit: [480, 480]), class: "thumb__img" %>
+        <% else %>
+          <%= image_tag "default-recipe.png", class: "thumb__img" %>
         <% end %>
       </div>
 
