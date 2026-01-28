@@ -1,2 +1,17 @@
-<!-- あとでお気に入り実装後に差し替え -->
-<span class="muted">♡</span>
+<% favorited = current_user.favorites.exists?(recipe_id: recipe.id) %>
+
+<% if favorited %>
+  <%= button_to recipe_favorite_path(recipe),
+        method: :delete,
+        class: "fav-btn",
+        aria: { label: "お気に入り解除" } do %>
+    <%= image_tag "heart_active.svg", class: "fav-icon", alt: "" %>
+  <% end %>
+<% else %>
+  <%= button_to recipe_favorite_path(recipe),
+        method: :post,
+        class: "fav-btn",
+        aria: { label: "お気に入りに追加" } do %>
+    <%= image_tag "heart_off.svg", class: "fav-icon", alt: "" %>
+  <% end %>
+<% end %>

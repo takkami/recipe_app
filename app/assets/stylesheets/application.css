@@ -32,3 +32,17 @@
 .thumb--large .thumb__img {
   height: 320px;
 }
+
+/* お気に入りボタン */
+.fav-btn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.fav-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
