@@ -9,7 +9,12 @@ Rails.application.routes.draw do
     post "users/guest_sign_in", to: "users/sessions#guest_sign_in", as: :users_guest_sign_in
   end
 
-  resources :recipes
+  resources :favorites, only: [:index]
+
+  resources :recipes do
+    resource :favorite, only: [:create, :destroy]
+  end
+
   get "/mypage", to: "recipes#mine"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
