@@ -1,2 +1,36 @@
-<h1>Recipes#show</h1>
-<p>Find me in app/views/recipes/show.html.erb</p>
+<h1 class="page-title"><%= @recipe.title %></h1>
+
+<div class="box">
+  <div class="row row--between">
+    <div class="muted">投稿者：<%= @recipe.user.email %></div>
+    <div>
+      <%= render "favorite_button", recipe: @recipe %>
+    </div>
+  </div>
+
+  <% if @recipe.source_url.present? %>
+    <p>
+      参考URL：
+      <%= link_to @recipe.source_url, @recipe.source_url, target: "_blank", rel: "noopener", class: "link" %>
+    </p>
+  <% end %>
+
+  <% if @recipe.ingredients.present? %>
+    <h2 class="section-title">材料</h2>
+    <div class="pre"><%= simple_format(h(@recipe.ingredients)) %></div>
+  <% end %>
+
+  <% if @recipe.memo.present? %>
+    <h2 class="section-title">メモ</h2>
+    <div class="pre"><%= simple_format(h(@recipe.memo)) %></div>
+  <% end %>
+
+  <div class="row">
+    <%= link_to "一覧へ", recipes_path, class: "btn btn--ghost" %>
+    <% if @recipe.user_id == current_user.id %>
+      <%= link_to "編集", edit_recipe_path(@recipe), class: "btn" %>
+      <%= button_to "削除", recipe_path(@recipe), method: :delete,
+            data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn--danger" %>
+    <% end %>
+  </div>
+</div>

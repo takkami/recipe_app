@@ -1,0 +1,39 @@
+<div class="box">
+  <%= form_with model: recipe do |f| %>
+    <% if recipe.errors.any? %>
+      <div class="alert">
+        <p>入力エラーがあります：</p>
+        <ul>
+          <% recipe.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :title, "タイトル" %>
+      <%= f.text_field :title, class: "input", placeholder: "例：豚こま生姜焼き" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :source_url, "参考URL（任意）" %>
+      <%= f.url_field :source_url, class: "input", placeholder: "https://..." %>
+    </div>
+
+    <div class="field">
+      <%= f.label :ingredients, "材料（任意）" %>
+      <%= f.text_area :ingredients, class: "input", rows: 6, placeholder: "例：豚こま200g / 玉ねぎ1/2 ..." %>
+    </div>
+
+    <div class="field">
+      <%= f.label :memo, "メモ（任意）" %>
+      <%= f.text_area :memo, class: "input", rows: 10, placeholder: "作り方のメモ、注意点など" %>
+    </div>
+
+    <div class="row">
+      <%= f.submit class: "btn" %>
+      <%= link_to "戻る", recipes_path, class: "btn btn--ghost" %>
+    </div>
+  <% end %>
+</div>
