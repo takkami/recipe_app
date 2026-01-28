@@ -1,3 +1,9 @@
+<div class="thumb thumb--large">
+  <% if @recipe.image.attached? %>
+    <%= image_tag @recipe.image.variant(resize_to_limit: [900, 900]), class: "thumb__img" %>
+  <% end %>
+</div>
+
 <h1 class="page-title"><%= @recipe.title %></h1>
 
 <div class="box">

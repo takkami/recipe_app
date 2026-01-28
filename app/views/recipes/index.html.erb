@@ -20,6 +20,12 @@
         <div class="muted">投稿者：<%= recipe.user.email %></div>
       </div>
 
+      <div class="thumb">
+        <% if recipe.image.attached? %>
+          <%= image_tag recipe.image.variant(resize_to_limit: [480, 480]), class: "thumb__img" %>
+        <% end %>
+      </div>
+
       <div class="card__body">
         <% if recipe.ingredients.present? %>
           <div class="muted">材料：</div>
