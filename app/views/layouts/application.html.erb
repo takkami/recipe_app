@@ -18,12 +18,18 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
+    <%= render "shared/header" %>
+
+    <%
+=begin%>
+ <% if user_signed_in? %>
       <p>ログイン中：<%= current_user.email %></p>
       <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
     <% else %>
       <p>未ログイン</p>
-    <% end %>
+    <% end %> 
+<%
+=end%>
 
     <%= yield %>
   </body>
