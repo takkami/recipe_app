@@ -79,6 +79,25 @@ body {
   background: #4b5e3a;
 }
 
+/* フッター */
+.footer {
+  background: #8ba870;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.footer__inner {
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.footer__text {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+
 /* レシピ画像 */
 .thumb {
   width: 100%;
