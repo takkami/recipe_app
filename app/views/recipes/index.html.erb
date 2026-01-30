@@ -1,48 +1,32 @@
 <h1 class="page-title">レシピ一覧</h1>
 
-<div class="box">
+<div class="search-box">
   <%= search_form_for @q, url: request.path, method: :get do |f| %>
-    <div class="row">
-      <%= f.search_field :title_or_ingredients_or_memo_cont, placeholder: "キーワード（タイトル/材料/メモ）", class: "input" %>
-      <%= f.submit "検索", class: "btn" %>
+    <div class="search-box__inner">
+      <%= f.search_field :title_or_ingredients_or_memo_cont, placeholder: "キーワードで検索", class: "search-input" %>
+      <%= f.submit "検索", class: "btn btn--search" %>
       <%= link_to "クリア", request.path, class: "btn btn--ghost" %>
     </div>
   <% end %>
 </div>
 
-<div class="grid">
+<div class="recipe-grid">
   <% @recipes.each do |recipe| %>
-    <div class="card">
-      <div class="card__head">
-        <h2 class="card__title">
-          <%= link_to recipe.title, recipe_path(recipe), class: "link" %>
-        </h2>
-        <div class="muted">投稿者：<%= recipe.user.email %></div>
-      </div>
-
-      <div class="thumb">
-        <% if recipe.image.attached? %>
-          <%= image_tag recipe.image.variant(resize_to_limit: [480, 480]), class: "thumb__img" %>
-        <% else %>
-          <%= image_tag "default-recipe.png", class: "thumb__img" %>
-        <% end %>
-      </div>
-
-      <div class="card__body">
-        <% if recipe.ingredients.present? %>
-          <div class="muted">材料：</div>
-          <div class="clamp"><%= simple_format(h(recipe.ingredients)) %></div>
-        <% end %>
-      </div>
-
-      <div class="card__foot">
+    <div class="recipe-card">
+      <%= link_to recipe_path(recipe), class: "recipe-card__link" do %>
+        <div class="recipe-card__image">
+          <% if recipe.image.attached? %>
+            <%= image_tag recipe.image.variant(resize_to_limit: [480, 480]), class: "recipe-card__img", alt: recipe.title %>
+          <% else %>
+            <%= image_tag "default-recipe.png", class: "recipe-card__img" %>
+          <% end %>
+        </div>
+        <div class="recipe-card__content">
+          <h2 class="recipe-card__title"><%= recipe.title %></h2>
+        </div>
+      <% end %>
+      <div class="recipe-card__actions">
         <%= render "favorite_button", recipe: recipe %>
-
-        <% if recipe.user_id == current_user.id %>
-          <%= link_to "編集", edit_recipe_path(recipe), class: "btn btn--small" %>
-          <%= button_to "削除", recipe_path(recipe), method: :delete,
-                data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn--danger btn--small" %>
-        <% end %>
       </div>
     </div>
   <% end %>
