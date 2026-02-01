@@ -1,20 +1,27 @@
-<h1 class="page-title">お気に入り</h1>
+<h1 class="page-title">お気に入り一覧</h1>
 
 <% if @recipes.empty? %>
-  <div class="box">
-    <p>お気に入りはまだありません。</p>
+  <div class="box" style="text-align: center; padding: 60px 20px;">
+    <p style="font-size: 16px; color: #666; margin-bottom: 20px;">お気に入りはまだありません。</p>
     <%= link_to "レシピ一覧へ", recipes_path, class: "btn" %>
   </div>
 <% else %>
-  <div class="grid">
+  <div class="recipe-grid">
     <% @recipes.each do |recipe| %>
-      <div class="card">
-        <div class="card__head">
-          <h2 class="card__title"><%= link_to recipe.title, recipe_path(recipe), class: "link" %></h2>
-          <div class="muted">投稿者：<%= recipe.user.email %></div>
-        </div>
-
-        <div class="card__foot">
+      <div class="recipe-card">
+        <%= link_to recipe_path(recipe), class: "recipe-card__link" do %>
+          <div class="recipe-card__image">
+            <% if recipe.image.attached? %>
+              <%= image_tag recipe.image.variant(resize_to_limit: [480, 480]), class: "recipe-card__img", alt: recipe.title %>
+            <% else %>
+              <%= image_tag "default-recipe.png", class: "recipe-card__img" %>
+            <% end %>
+          </div>
+          <div class="recipe-card__content">
+            <h2 class="recipe-card__title"><%= recipe.title %></h2>
+          </div>
+        <% end %>
+        <div class="recipe-card__actions">
           <%= render "recipes/favorite_button", recipe: recipe %>
         </div>
       </div>
