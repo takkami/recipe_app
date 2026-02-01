@@ -1,51 +1,47 @@
-<div class="box">
-  <%= form_with model: recipe do |f| %>
-    <% if recipe.errors.any? %>
-      <div class="alert">
-        <p>入力エラーがあります：</p>
-        <ul>
-          <% recipe.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+<div class="form-container">
+  <%= form_with model: recipe, class: "recipe-form" do |f| %>
+    <div class="recipe-form__inner">
+      <div class="form-group">
+        <%= f.label :title, "タイトル", class: "form-label form-label--required" %>
+        <%= f.text_field :title, class: "form-input", placeholder: "例：豚こま生姜焼き" %>
       </div>
-    <% end %>
 
-    <div class="field">
-      <%= f.label :title, "タイトル" %>
-      <%= f.text_field :title, class: "input", placeholder: "例：豚こま生姜焼き" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :source_url, "参考URL（任意）" %>
-      <%= f.url_field :source_url, class: "input", placeholder: "https://..." %>
-    </div>
-
-    <div class="field">
-      <%= f.label :image, "画像（任意）" %>
-      <%= f.file_field :image, accept: "image/*", class: "input" %>
-    </div>
-
-    <% if recipe.image.attached? %>
-      <div class="field">
-        <div class="muted">現在の画像：</div>
-        <%= image_tag recipe.image.variant(resize_to_limit: [600, 600]) %>
+      <div class="form-group">
+        <%= f.label :source_url, "参考URL", class: "form-label" %>
+        <%= f.url_field :source_url, class: "form-input", placeholder: "https://example.com/recipe" %>
       </div>
-    <% end %>
 
-    <div class="field">
-      <%= f.label :ingredients, "材料（任意）" %>
-      <%= f.text_area :ingredients, class: "input", rows: 6, placeholder: "例：豚こま200g / 玉ねぎ1/2 ..." %>
-    </div>
+      <div class="form-group">
+        <%= f.label :image, "画像", class: "form-label" %>
+        <div class="file-input-wrapper">
+          <%= f.file_field :image, accept: "image/*", class: "file-input", id: "recipe_image_input" %>
+          <label for="recipe_image_input" class="file-input-label">
+            <span class="file-input-icon">📷</span>
+            <span class="file-input-text">画像を選択</span>
+          </label>
+        </div>
+        <% if recipe.image.attached? %>
+          <div class="current-image">
+            <div class="current-image__label">現在の画像：</div>
+            <%= image_tag recipe.image.variant(resize_to_limit: [400, 400]), class: "current-image__img" %>
+          </div>
+        <% end %>
+      </div>
 
-    <div class="field">
-      <%= f.label :memo, "メモ（任意）" %>
-      <%= f.text_area :memo, class: "input", rows: 10, placeholder: "作り方のメモ、注意点など" %>
-    </div>
+      <div class="form-group">
+        <%= f.label :ingredients, "材料", class: "form-label" %>
+        <%= f.text_area :ingredients, class: "form-textarea", rows: 6, placeholder: "例：\n豚こま肉：200g\n玉ねぎ：1/2個\n生姜：1片\n醤油：大さじ2" %>
+      </div>
 
-    <div class="row">
-      <%= f.submit class: "btn" %>
-      <%= link_to "戻る", recipes_path, class: "btn btn--ghost" %>
+      <div class="form-group">
+        <%= f.label :memo, "メモ", class: "form-label" %>
+        <%= f.text_area :memo, class: "form-textarea", rows: 8, placeholder: "作り方のメモ、注意点、アレンジ方法など" %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit recipe.new_record? ? "保存する" : "更新する", class: "btn btn--submit" %>
+        <%= link_to "キャンセル", recipes_path, class: "btn btn--cancel" %>
+      </div>
     </div>
   <% end %>
 </div>
