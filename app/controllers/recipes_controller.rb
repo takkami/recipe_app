@@ -11,7 +11,6 @@ class RecipesController < ApplicationController
   def mine
     @q = current_user.recipes.ransack(params[:q])
     @recipes = @q.result(distinct: true).order(created_at: :desc)
-    render :index
   end
 
   def show
