@@ -1,29 +1,43 @@
-<h2>Sign up</h2>
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-card__header">
+      <h2 class="auth-card__title">新規登録</h2>
+      <p class="auth-card__subtitle">アカウントを作成してレシピ管理を始めましょう</p>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
-
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <% if @minimum_password_length %>
-      <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
+    <% if resource.errors.any? %>
+      <% flash.now[:alert] = resource.errors.full_messages.join(" / ") %>
     <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
-  </div>
 
-  <div class="field">
-    <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "auth-form" }) do |f| %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+      <div class="auth-form__group">
+        <%= f.label :email, "メールアドレス", class: "auth-form__label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "auth-form__input", placeholder: "example@email.com" %>
+      </div>
 
-<%= render "devise/shared/links" %>
+      <div class="auth-form__group">
+        <%= f.label :password, "パスワード", class: "auth-form__label" %>
+        <% if @minimum_password_length %>
+          <span class="auth-form__hint">（<%= @minimum_password_length %>文字以上）</span>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "auth-form__input", placeholder: "6文字以上" %>
+      </div>
+
+      <div class="auth-form__group">
+        <%= f.label :password_confirmation, "パスワード（確認）", class: "auth-form__label" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "auth-form__input", placeholder: "もう一度入力" %>
+      </div>
+
+      <div class="auth-form__actions">
+        <%= f.submit "新規登録", class: "auth-btn auth-btn--primary" %>
+      </div>
+    <% end %>
+
+    <div class="auth-links">
+      <% if devise_mapping.authenticatable? %>
+        <%= link_to "ログインはこちら", new_session_path(resource_name), class: "auth-link" %>
+      <% end %>
+    </div>
+  </div>
+</div>
