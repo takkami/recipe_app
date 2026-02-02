@@ -1,6 +1,15 @@
 class FavoritesController < ApplicationController
   def index
-    @recipes = current_user.favorited_recipes.includes(:user).order("favorites.created_at DESC")
+    favorite_recipe_ids = current_user.favorites
+                                      .order(created_at: :desc)
+                                      .pluck(:recipe_id)
+
+    @q = Recipe.where(id: favorite_recipe_ids).ransack(params[:q])
+    @recipes = @q.result.includes(:user)
+
+    if @recipes.present? && params[:q].blank?
+      @recipes = @recipes.sort_by { |recipe| favorite_recipe_ids.index(recipe.id) }
+    end
   end
 
   def create
