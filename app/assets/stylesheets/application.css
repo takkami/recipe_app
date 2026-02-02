@@ -260,7 +260,7 @@ body {
 /* ===== Button ===== */
 .btn {
   display: inline-block;
-  background: #111;
+  background: #8ba870;
   color: #fff;
   text-decoration: none;
   border: none;
@@ -269,6 +269,10 @@ body {
   cursor: pointer;
   font-size: 14px;
   white-space: nowrap;
+}
+
+.btn:hover {
+  background: #7a9760;
 }
 
 .btn--ghost {
