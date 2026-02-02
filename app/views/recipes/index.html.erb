@@ -26,6 +26,7 @@
         </div>
       <% end %>
       <div class="recipe-card__actions">
+        <span class="recipe-card__author"><%= recipe.user.email %></span>
         <%= render "favorite_button", recipe: recipe %>
       </div>
     </div>
