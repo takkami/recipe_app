@@ -1,4 +1,8 @@
 <div class="recipe-detail">
+  <div class="recipe-detail__back-wrapper">
+    <%= link_to "← レシピ一覧へ", recipes_path, class: "recipe-detail__back-link-top" %>
+  </div>
+
   <div class="recipe-detail__image">
     <% if @recipe.image.attached? %>
       <%= image_tag @recipe.image.variant(resize_to_limit: [1200, 1200]), class: "recipe-detail__img", alt: @recipe.title %>
@@ -53,9 +57,5 @@
         </div>
       </div>
     <% end %>
-  </div>
-
-  <div class="recipe-detail__footer">
-    <%= link_to "← レシピ一覧へ", recipes_path, class: "recipe-detail__back-link" %>
   </div>
 </div>
