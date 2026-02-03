@@ -54,10 +54,16 @@ class RecipesController < ApplicationController
   end
 
   def set_recipe
-    @recipe = Recipe.find(params[:id])
+    @recipe = Recipe.includes(:user).find_by(id: params[:id])
+    return if @recipe
+
+    redirect_to recipes_path, alert: "レシピが見つかりませんでした"
   end
 
   def set_my_recipe
-    @recipe = current_user.recipes.find(params[:id])
+    @recipe = current_user.recipes.find_by(id: params[:id])
+    return if @recipe
+
+    redirect_to recipes_path, alert: "レシピが見つかりませんでした"
   end
 end
