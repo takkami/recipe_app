@@ -1,0 +1,61 @@
+<div class="recipe-detail">
+  <div class="recipe-detail__back-wrapper">
+    <%= link_to "← レシピ一覧へ", recipes_path, class: "recipe-detail__back-link-top" %>
+  </div>
+
+  <div class="recipe-detail__image">
+    <% if @recipe.image.attached? %>
+      <%= image_tag @recipe.image.variant(resize_to_limit: [1200, 1200]), class: "recipe-detail__img", alt: @recipe.title %>
+    <% else %>
+      <%= image_tag "default-recipe.png", class: "recipe-detail__img", alt: "レシピ画像（未設定）" %>
+    <% end %>
+  </div>
+
+  <div class="recipe-detail__header">
+    <div class="recipe-detail__title-row">
+      <h1 class="recipe-detail__title"><%= @recipe.title %></h1>
+      <% if @recipe.user_id == current_user.id %>
+        <div class="recipe-detail__owner-actions">
+          <%= link_to "編集", edit_recipe_path(@recipe), class: "btn btn--small btn--edit" %>
+          <%= button_to "削除", recipe_path(@recipe), method: :delete,
+                data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn--small btn--delete" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="recipe-detail__meta">
+      <span class="recipe-detail__author">投稿者：<%= @recipe.user.email %></span>
+      <div class="recipe-detail__fav">
+        <%= render "favorite_button", recipe: @recipe %>
+      </div>
+    </div>
+  </div>
+
+  <div class="recipe-detail__content">
+    <% if @recipe.source_url.present? %>
+      <div class="recipe-detail__section">
+        <h2 class="recipe-detail__section-title">参考URL</h2>
+        <div class="recipe-detail__url">
+          <%= link_to @recipe.source_url, @recipe.source_url, target: "_blank", rel: "noopener", class: "recipe-detail__link" %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @recipe.ingredients.present? %>
+      <div class="recipe-detail__section">
+        <h2 class="recipe-detail__section-title">材料</h2>
+        <div class="recipe-detail__text">
+          <%= simple_format(h(@recipe.ingredients)) %>
+        </div>
+      </div>
+    <% end %>
+
+    <% if @recipe.memo.present? %>
+      <div class="recipe-detail__section">
+        <h2 class="recipe-detail__section-title">メモ</h2>
+        <div class="recipe-detail__text">
+          <%= simple_format(h(@recipe.memo)) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

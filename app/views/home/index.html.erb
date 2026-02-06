@@ -1,0 +1,41 @@
+<div class="hero">
+  <div class="hero__visual">
+    <div class="hero__icon">🍳</div>
+  </div>
+
+  <h1 class="hero__title">Recipin'</h1>
+  <p class="hero__subtitle">レシピを保存（ピン）して迷わず作れる。</p>
+
+  <% if user_signed_in? %>
+    <div class="hero__actions">
+      <%= link_to "レシピ一覧へ", recipes_path, class: "btn btn--large" %>
+      <%= link_to "投稿する", new_recipe_path, class: "btn btn--large btn--ghost" %>
+    </div>
+  <% else %>
+    <div class="hero__actions">
+      <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn--large" %>
+      <%= link_to "新規登録", new_user_registration_path, class: "btn btn--large btn--ghost" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="features">
+  <h2 class="features__title">こんな方におすすめ</h2>
+
+  <div class="features__grid">
+    <div class="feature">
+      <div class="feature__icon">🔖</div>
+      <div class="feature__text">WebサイトのレシピURLを<br>簡単ストック</div>
+    </div>
+
+    <div class="feature">
+      <div class="feature__icon">🔍</div>
+      <div class="feature__text">あの日のレシピが<br>すぐに見つかる</div>
+    </div>
+
+    <div class="feature">
+      <div class="feature__icon">📖</div>
+      <div class="feature__text">自分だけの<br>レシピ帳が欲しい</div>
+    </div>
+  </div>
+</div>

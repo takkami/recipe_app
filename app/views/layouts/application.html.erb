@@ -18,6 +18,23 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render "shared/header" %>
+
+    <main class="main">
+      <div class="container">
+
+        <%= yield %>
+      </div>
+    </main>
+
+    <div class="flash-wrapper">
+      <% flash.each do |type, msg| %>
+        <div class="flash <%= type == "notice" ? "flash--notice" : "flash--alert" %>">
+          <%= msg %>
+        </div>
+      <% end %>
+    </div>
+
+    <%= render "shared/footer" %>
   </body>
 </html>

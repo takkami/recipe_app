@@ -1,0 +1,44 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
+        current_password: "現在のパスワード"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "を入力してください"
+              invalid: "は有効なメールアドレスではありません"
+              taken: "は既に使用されています"
+            password:
+              blank: "を入力してください"
+              too_short: "は%{count}文字以上で入力してください"
+              too_long: "は%{count}文字以内で入力してください"
+            password_confirmation:
+              confirmation: "が一致しません"
+            current_password:
+              blank: "を入力してください"
+              invalid: "が正しくありません"
+
+  devise:
+    failure:
+      invalid: "メールアドレスまたはパスワードが違います"
+      not_found_in_database: "メールアドレスまたはパスワードが違います"
+      unauthenticated: "ログインしてください"
+    registrations:
+      signed_up: "アカウント登録が完了しました"
+      updated: "アカウント情報を変更しました"
+      destroyed: "アカウントを削除しました"
+    sessions:
+      signed_in: "ログインしました"
+      signed_out: "ログアウトしました"
+
+  errors:
+    messages:
+      not_saved:
+        one: "エラーが発生したため保存できませんでした"
+        other: "%{count}件のエラーが発生したため保存できませんでした"

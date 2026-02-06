@@ -1,0 +1,58 @@
+<header class="header" data-controller="hamburger">
+  <div class="container header__inner">
+    <div class="header__left">
+      <%= link_to "Recipin'", root_path, class: "logo" %>
+    </div>
+
+    <!-- ハンバーガーボタン（モバイルのみ表示） -->
+    <button class="hamburger"
+            type="button"
+            data-action="click->hamburger#toggle"
+            data-hamburger-target="button"
+            aria-label="メニュー"
+            aria-expanded="false"
+            aria-controls="mobile-menu">
+      <span class="hamburger__line"></span>
+      <span class="hamburger__line"></span>
+      <span class="hamburger__line"></span>
+    </button>
+
+    <!-- デスクトップナビゲーション -->
+    <nav class="header__desktop-nav">
+      <% if user_signed_in? %>
+        <%= link_to "レシピ一覧", recipes_path, class: "nav-link" %>
+        <%= link_to "お気に入り", favorites_path, class: "nav-link" %>
+        <%= link_to "マイページ", mypage_path, class: "nav-link" %>
+        <%= link_to "レシピ登録", new_recipe_path, class: "nav-link" %>
+        <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-btn" %>
+      <% else %>
+        <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "nav-link" %>
+        <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "nav-btn" %>
+      <% end %>
+    </nav>
+  </div>
+
+  <!-- モバイルメニュー（header__innerの外側に配置） -->
+  <nav class="header__mobile-menu" id="mobile-menu" data-hamburger-target="menu" aria-hidden="true" data-action="click@window->hamburger#closeOnClickOutside">
+    <div class="header__mobile-menu-inner">
+      <% if user_signed_in? %>
+        <%= link_to "レシピ一覧", recipes_path, class: "mobile-nav-link", data: { action: "click->hamburger#close" } %>
+        <%= link_to "お気に入り", favorites_path, class: "mobile-nav-link", data: { action: "click->hamburger#close" } %>
+        <%= link_to "マイページ", mypage_path, class: "mobile-nav-link", data: { action: "click->hamburger#close" } %>
+        <%= link_to "レシピ登録", new_recipe_path, class: "mobile-nav-link", data: { action: "click->hamburger#close" } %>
+
+        <div class="mobile-nav-divider"></div>
+
+        <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "mobile-nav-btn", form: { data: { action: "submit->hamburger#close" } } %>
+      <% else %>
+        <%= link_to "ログイン", new_user_session_path, class: "mobile-nav-link", data: { action: "click->hamburger#close" } %>
+        <%= link_to "新規登録", new_user_registration_path, class: "mobile-nav-link", data: { action: "click->hamburger#close" } %>
+
+        <div class="mobile-nav-divider"></div>
+
+        <%= button_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "mobile-nav-btn", form: { data: { action: "submit->hamburger#close" } } %>
+      <% end %>
+    </div>
+  </nav>
+</header>
