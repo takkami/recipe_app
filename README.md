@@ -11,7 +11,10 @@
 
 ## 3. サービスのURL
 
-（デプロイ後に記載）
+**https://recipin-app-18eb78477f51.herokuapp.com/**
+
+※ ゲストログインボタンからすぐに試せます
+※ 画像はJPEG/PNG形式をご使用ください（HEIC形式は現在サポート対象外）
 
 ## 4. サービス
 
@@ -55,7 +58,7 @@ SNSやYouTube、レシピサイトで見つけたレシピは、後日作ろう�
 - Turbo（標準Rails）
 
 ### バックエンド
-- Ruby 3.3.3
+- Ruby 3.3.10
 - Ruby on Rails 7.2.2.1
 - PostgreSQL
 
@@ -63,23 +66,39 @@ SNSやYouTube、レシピサイトで見つけたレシピは、後日作ろう�
 - 開発：ローカル保存
 - 本番：AWS S3
 
-### インフラ・開発環境
-- Render（Web Service / PostgreSQL）
+### インフラ・デプロイ
+- Heroku（Web Dyno + PostgreSQL）
 - Git / GitHub
 
 ## 8. ER図
 
-（デプロイ後に記載）
+![ER Diagram](docs/images/er_diagram.png)
+
+### テーブル説明
+
+#### users（ユーザー）
+- Deviseによる認証情報を管理
+- レシピの作成者、お気に入りの所有者
+
+#### recipes（レシピ）
+- レシピの基本情報（タイトル、材料、メモ、参考URL）
+- user_idで作成者と紐付け
+- 画像はActiveStorageで管理（本番環境：AWS S3）
+
+#### favorites（お気に入り）
+- usersとrecipesの多対多の中間テーブル
+- user_id + recipe_idのユニーク制約で重複を防止
 
 ## 9. 今後の展望
 ### 直近の修正予定
 - UIの改善（より迷わない導線・ボタン配置）
 - レスポンシブ対応の強化（スマホでさらに使いやすく）
-- テスト実装
+- テスト実装（RSpec）
 
 ### 短期的な目標
 - 非同期でお気に入り切替（ページリロードなし）
 - カテゴリ/タグ機能（和食・洋食・節約などで整理）
+- HEIC画像形式のサポート
 
 ### 中長期的な目標
 - 買い物リスト機能（材料から自動生成）
