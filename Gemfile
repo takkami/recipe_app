@@ -40,6 +40,12 @@ gem "image_processing"
 
 gem "aws-sdk-s3", require: false
 
+# Fix for Heroku deployment
+gem "net-protocol"
+gem "net-pop"
+gem "net-smtp"
+gem "net-imap"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
